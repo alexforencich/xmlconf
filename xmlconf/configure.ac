@@ -1,10 +1,11 @@
 AC_PREREQ(2.57)
 
-AC_INIT(xboot-conf, 0.1.0)
+AC_INIT(xmlconf, 0.1.0)
 
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_AUX_DIR(build)
 
+sinclude(build/common.m4)
 sinclude(build/expat.m4)
 
 AM_INIT_AUTOMAKE
@@ -17,6 +18,7 @@ AC_SUBST(top_builddir)
 AC_SUBST(abs_srcdir)
 AC_SUBST(abs_builddir)
 
+dnl Default Paths
 prefix=/usr/local
 exec_prefix=${prefix}
 bindir=${exec_prefix}/bin
@@ -33,21 +35,6 @@ runtimedir=${localstatedir}/run
 
 PARSE_ARGUMENTS
 
-echo "ABCDEF"
-echo $prefix
-echo $exec_prefix
-echo $bindir
-echo $sbindir
-echo $libdir
-echo $libexecdir
-echo $mandir
-echo $sysconfdir
-echo $datadir
-echo $installbuilddir
-echo $includedir
-echo $localstatedir
-echo $runtimedir
-
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
@@ -58,6 +45,10 @@ case "${host}" in
         *) WIN32="no" ;;
 esac
 AM_CONDITIONAL([WIN32], test "$WIN32" = "yes")
+
+if test "$WIN32" = "yes"; then
+	with_expat="builtin"
+fi
 
 dnl GTK_REQUIRED_VERSION=2.0.0
 dnl GLIB_REQUIRED_VERSION=$GTK_REQUIRED_VERSION
