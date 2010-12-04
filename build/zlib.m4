@@ -99,8 +99,8 @@ AC_ARG_WITH([zlib],
     if test "$withval" != "/usr"; then
       VAR_ADDTO(LDFLAGS, [-L$withval/lib])
       VAR_ADDTO(CPPFLAGS, [-I$withval/include])
-      VAR_ADDTO(INCLUDES, [-I$withval/include])
-      VAR_ADDTO(LDFLAGS, [-L$withval/lib])
+      VAR_ADDTO(UTIL_INCLUDES, [-I$withval/include])
+      VAR_ADDTO(UTIL_LDFLAGS, [-L$withval/lib])
     fi
     # ...and refuse to fall back on the builtin expat.
     try_builtin_zlib=0
@@ -116,7 +116,7 @@ if test "${has_zlib}${try_builtin_zlib}" = "01"; then
   dnl we are working with the bundled version of the software.
   bundled_subdir="srclib/zlib"
   SUBDIR_CONFIG($bundled_subdir, [--prefix=$prefix --exec-prefix=$exec_prefix --libdir=$libdir --includedir=$includedir])
-  VAR_ADDTO(INCLUDES, [-I$top_builddir/$bundled_subdir])
+  VAR_ADDTO(UTIL_INCLUDES, [-I$top_builddir/$bundled_subdir])
   VAR_ADDTO(LDFLAGS, [-L$top_builddir/$bundled_subdir])
   zlib_libs="$top_builddir/$bundled_subdir/libz.a"
   dnl d="$top_builddir/$bundled_subdir/lib"

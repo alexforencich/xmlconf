@@ -64,8 +64,8 @@ AC_DEFUN([SYSTEM_EXPAT], [
  
     TRY_EXPAT_LINK([Expat 1.95.x in /usr/local], 
        xc_cv_expat_usrlocal, [expat.h], [-lexpat],
-       [VAR_ADDTO(APRUTIL_INCLUDES, [-I/usr/local/include])
-        VAR_ADDTO(APRUTIL_LDFLAGS, [-L/usr/local/lib])],[
+       [VAR_ADDTO(INCLUDES, [-I/usr/local/include])
+        VAR_ADDTO(LDFLAGS, [-L/usr/local/lib])],[
        VAR_REMOVEFROM(LDFLAGS, [-L/usr/local/lib])
        VAR_REMOVEFROM(CPPFLAGS, [-I/usr/local/include])
       ])
@@ -99,8 +99,8 @@ AC_ARG_WITH([expat],
     if test "$withval" != "/usr"; then
       VAR_ADDTO(LDFLAGS, [-L$withval/lib])
       VAR_ADDTO(CPPFLAGS, [-I$withval/include])
-      VAR_ADDTO(INCLUDES, [-I$withval/include])
-      VAR_ADDTO(LDFLAGS, [-L$withval/lib])
+      VAR_ADDTO(UTIL_INCLUDES, [-I$withval/include])
+      VAR_ADDTO(UTIL_LDFLAGS, [-L$withval/lib])
     fi
     # ...and refuse to fall back on the builtin expat.
     try_builtin_expat=0
@@ -116,7 +116,7 @@ if test "${has_expat}${try_builtin_expat}" = "01"; then
   dnl we are working with the bundled version of the software.
   bundled_subdir="srclib/expat"
   SUBDIR_CONFIG($bundled_subdir, [--prefix=$prefix --exec-prefix=$exec_prefix --libdir=$libdir --includedir=$includedir --bindir=$bindir])
-  VAR_ADDTO(INCLUDES, [-I$top_builddir/$bundled_subdir/lib])
+  VAR_ADDTO(UTIL_INCLUDES, [-I$top_builddir/$bundled_subdir/lib])
   VAR_ADDTO(LDFLAGS, [-L$top_builddir/$bundled_subdir/lib])
   #expat_libs="$top_builddir/$bundled_subdir/libexpat.la"
   d="$top_builddir/$bundled_subdir/lib"

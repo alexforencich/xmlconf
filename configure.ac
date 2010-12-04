@@ -7,6 +7,7 @@ AC_CONFIG_AUX_DIR(build)
 
 sinclude(build/common.m4)
 sinclude(build/expat.m4)
+sinclude(build/zlib.m4)
 
 AM_INIT_AUTOMAKE
 
@@ -48,6 +49,7 @@ AM_CONDITIONAL([WIN32], test "$WIN32" = "yes")
 
 if test "$WIN32" = "yes"; then
 	with_expat="builtin"
+	with_zlib="builtin"
 fi
 
 dnl GTK_REQUIRED_VERSION=2.0.0
@@ -59,6 +61,13 @@ dnl AM_PATH_GTK_2_0($GTK_REQUIRED_VERSION,,
 dnl   [AC_MSG_ERROR(Test for GTK failed.)])
 
 FIND_EXPAT
+FIND_ZLIB
+
+VAR_ADDTO(INCLUDES, [$UTIL_INCLUDES])
+VAR_ADDTO(LDFLAGS, [$UTIL_LDFLAGS])
+
+AC_SUBST(INCLUDES)
+AC_SUBST(LDFLAGS)
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT

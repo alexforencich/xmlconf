@@ -1,4 +1,13 @@
-aclocal \
-&& autoheader \
-&& automake --foreign --add-missing --copy \
-&& autoconf
+#!/bin/sh
+
+dir=`pwd`
+
+echo "Bootstrapping in $dir..."
+
+aclocal
+autoheader
+automake --foreign --add-missing --copy
+autoconf
+
+cd srclib/zlib
+./bootstrap
