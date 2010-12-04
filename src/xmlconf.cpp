@@ -33,18 +33,75 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <libgen.h>
+#include <getopt.h>
 #include <string.h>
+#include <inttypes.h>
 
 #include <expat.h>
 #include <zlib.h>
 
-int main (int argc, char *argv)
+void usage(FILE *stream, char *program);
+
+int main (int argc, char **argv)
 {
-    printf("XMLCONF\n\n");
+    int opt;
     
+    struct option long_options[] = {
+        //{"id", required_argument, 0, 'i'},
+        //{"cid", required_argument, 0, 'c'},
+        //{"ver", required_argument, 0, 'v'},
+        //{"sn", required_argument, 0, 's'},
+        //{"ed", required_argument, 0, 'e'},
+        //{"dt", required_argument, 0, 'd'},
+        //{"read", required_argument, 0, 'r'},
+        //{"file", required_argument, 0, 'f'},
+        //{"output", required_argument, 0, 'o'},
+        //{"type", required_argument, 0, 't'},
+        {"version", no_argument, 0, 'v'},
+        {0, 0, 0, 0}
+    };
     
+    printf("XMLCONF\n");
+    
+    while ((opt = getopt_long(argc, argv, "v", long_options, NULL)) != -1)
+    {
+        switch (opt)
+        {
+            case 'v':
+                printf("xmlconf version xxx\n");
+                exit(0);
+                break;
+        }
+    }
+    
+    if (argc == optind)
+    {
+        usage(stderr, basename(argv[0]));
+        return 0;
+    }
+    
+    printf("%s\n", argv[optind]);
     
     return 0;
+}
+
+void usage(FILE *stream, char *program)
+{
+    fprintf(stream, "Usage: %s [<options>] [<filename>]\n", program);
+    fprintf(stream, "Options:\n");
+    //fprintf(stream, " -i, --id=<id>                ID number, in hex (default: 0000)\n");
+    //fprintf(stream, " -c, --cid=<cid>              Collection/job ID, in hex (default: 00000000)\n");
+    //fprintf(stream, " -v, --ver=<maj>.<min>.<rev>  Version (default: 1.0.0)\n");
+    //fprintf(stream, " -s, --sn=<sn>                Serial number, in hex (default: 0000000000000000)\n");
+    //fprintf(stream, " -e, --ed=<ed>                Extra data, in hex (default: none)\n");
+    //fprintf(stream, " -d, --dt=<desc>              Description text, plain (default: HW)\n");
+    //fprintf(stream, " -r, --read=<name>            Read bin/hex/ihex ID file\n");
+    //fprintf(stream, " -f, --file=<name>            ID file\n");
+    //fprintf(stream, " -o, --output=<name>          Output file\n");
+    //fprintf(stream, " -t, --type=<type>            Output type (bin, hex, ihex)\n");
+    fprintf(stream, " -v, --version                Print version information and exit\n");
 }
 
 
