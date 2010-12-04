@@ -1,0 +1,10 @@
+#!/bin/sh
+
+dir=`pwd`
+
+echo "Bootstrapping in $dir..."
+
+libtoolize
+aclocal
+automake --foreign --add-missing --copy
+autoconf
