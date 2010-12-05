@@ -5,9 +5,10 @@ AUTOMAKE_OPTIONS = 1.8 cygnus
 ACLOCAL_AMFLAGS = -I .. -I ../config
 
 ZLIB_SOURCES = adler32.c compress.c crc32.c crc32.h deflate.c \
-deflate.h infback.c inffast.c inffast.h inffixed.h inflate.c \
-inflate.h inftrees.c inftrees.h trees.c trees.h uncompr.c zconf.h \
-zconf.in.h zlib.h zutil.c zutil.h
+deflate.h gzclose.c gzlib.c gzread.c gzwrite.c gzguts.h infback.c \
+inffast.c inffast.h inffixed.h inflate.c inflate.h inftrees.c \
+inftrees.h trees.c trees.h uncompr.c zconf.h zconf.in.h zlib.h \
+zutil.c zutil.h
 
 if TARGET_LIBRARY
 noinst_LTLIBRARIES = libzgcj_convenience.la
