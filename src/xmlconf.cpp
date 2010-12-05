@@ -3,7 +3,7 @@
 /*                                                                      */
 /* Extensibe XML based configuration generator                          */
 /*                                                                      */
-/* xmlconf.c                                                            */
+/* xmlconf.cpp                                                          */
 /*                                                                      */
 /* Alex Forencich <alex@alexforencich.com>                              */
 /*                                                                      */
@@ -39,14 +39,27 @@
 #include <string.h>
 #include <inttypes.h>
 
+#include <string>
+#include <vector>
+
 #include <expat.h>
 #include <zlib.h>
 
+using namespace std;
+
 void usage(FILE *stream, char *program);
 
-int main (int argc, char **argv)
+int main (int argc, char *argv[])
 {
+    int i;
     int opt;
+    long len;
+    
+    gzFile f;
+    
+    vector<string> input_file_list(0);
+    
+    char buffer[8192];
     
     struct option long_options[] = {
         //{"id", required_argument, 0, 'i'},
@@ -65,6 +78,7 @@ int main (int argc, char **argv)
     
     printf("XMLCONF\n");
     
+    // process command line args
     while ((opt = getopt_long(argc, argv, "v", long_options, NULL)) != -1)
     {
         switch (opt)
@@ -76,13 +90,38 @@ int main (int argc, char **argv)
         }
     }
     
+    // did we get a file name?
     if (argc == optind)
     {
         usage(stderr, basename(argv[0]));
         return 0;
     }
     
-    printf("%s\n", argv[optind]);
+    // store file names
+    i = optind;
+    while (i < argc)
+    {
+        input_file_list.push_back(argv[i++]);
+    }
+    
+    // process file names
+    for (i = 0; i < input_file_list.size(); i++)
+    {
+        printf("Processing input file %s\n", input_file_list[i].c_str());
+        
+        f = gzopen(input_file_list[i].c_str(), "rb");
+        
+        if (f == NULL)
+        {
+            fprintf(stderr, "+++ error: cannot open \"%s\"", input_file_list[i].c_str());
+            exit(1);
+        }
+        
+        len = gzread(f, buffer, 8192);
+        fwrite(buffer, 1, len, stdout);
+        
+        gzclose(f);
+    }
     
     return 0;
 }
