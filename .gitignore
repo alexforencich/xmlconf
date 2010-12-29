@@ -7,13 +7,21 @@ Makefile.in
 aclocal.m4
 autom4te.cache/
 compile
+config.guess
 config.h
 config.h.in
 config.log
 config.status
+config.sub
 configure
 depcomp
 install-sh
+ltmain.sh
+m4/libtool.m4
+m4/ltoptions.m4
+m4/ltsugar.m4
+m4/ltversion.m4
+m4/lt~obsolete.m4
 missing
 src/.deps/
 src/Makefile
@@ -49,6 +57,11 @@ srclib/zlib/configure
 srclib/zlib/install-sh
 srclib/zlib/libtool
 srclib/zlib/ltmain.sh
+srclib/zlib/m4/libtool.m4
+srclib/zlib/m4/ltoptions.m4
+srclib/zlib/m4/ltsugar.m4
+srclib/zlib/m4/ltversion.m4
+srclib/zlib/m4/lt~obsolete.m4
 srclib/zlib/missing
 stamp-h1
 

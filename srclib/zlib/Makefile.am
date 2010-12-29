@@ -2,7 +2,8 @@
 
 AUTOMAKE_OPTIONS = 1.8 cygnus
 
-ACLOCAL_AMFLAGS = -I .. -I ../config
+#ACLOCAL_AMFLAGS = -I .. -I ../config
+ALOCAL_AMFLAGS = -I m4
 
 ZLIB_SOURCES = adler32.c compress.c crc32.c crc32.h deflate.c \
 deflate.h gzclose.c gzlib.c gzread.c gzwrite.c gzguts.h infback.c \

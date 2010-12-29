@@ -2,12 +2,18 @@
 
 dir=`pwd`
 
+cd srclib/zlib
+./bootstrap
+
+cd $dir
+
 echo "Bootstrapping in $dir..."
 
+#libtoolize
 aclocal
 autoheader
 automake --foreign --add-missing --copy
 autoconf
 
-cd srclib/zlib
-./bootstrap
+#autoreconf
+
