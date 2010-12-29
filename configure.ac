@@ -3,11 +3,11 @@ AC_PREREQ(2.57)
 AC_INIT(xmlconf, 0.1.0)
 
 AC_CONFIG_HEADER([config.h])
-AC_CONFIG_AUX_DIR(build)
+AC_CONFIG_MACRO_DIR([m4])
 
-sinclude(build/common.m4)
-sinclude(build/expat.m4)
-sinclude(build/zlib.m4)
+sinclude(m4/common.m4)
+sinclude(m4/expat.m4)
+sinclude(m4/zlib.m4)
 
 AM_INIT_AUTOMAKE
 
